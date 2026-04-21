@@ -75,8 +75,8 @@ movie-ticket-reservation/
 
 #### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/movie-ticket-reservation.git
-cd movie-ticket-reservation
+git clone https://github.com/ShanukaZaar/movie-ticket.git
+cd movie-ticket
 ```
 
 #### 2. Create the MySQL Database
