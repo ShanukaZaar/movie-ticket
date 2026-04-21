@@ -1,0 +1,15 @@
+/* ============================================
+   Movie Ticket Reservation System - Base Styles
+   ============================================ */
+
+/* Add your custom styles here.
+   Bootstrap handles most styling via CDN.
+   Use this file for project-specific overrides. */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    border-radius: 10px;
+}
