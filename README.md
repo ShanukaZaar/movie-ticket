@@ -8,7 +8,7 @@ A Java web application for online movie ticket booking, built as a group project
 
 | Layer      | Technology               |
 |------------|--------------------------|
-| Backend    | Java Servlets (No Spring)|
+| Backend    | Java Servlets            |
 | Frontend   | JSP + Bootstrap 5 (CDN)  |
 | Database   | MySQL (JDBC)             |
 | Build Tool | Apache Maven             |
@@ -65,7 +65,7 @@ movie-ticket-reservation/
 ## 🚀 Setup Instructions
 
 ### Prerequisites
-- Java JDK 11 or higher
+- Java JDK 17
 - Apache Tomcat 9+
 - MySQL Server 8.0+
 - Apache Maven 3.6+
