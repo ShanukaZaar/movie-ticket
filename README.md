@@ -381,7 +381,3 @@ git push origin feature/your-branch
 - Add your own CSS/JS files under `css/` and `js/` folders
 
 ---
-
-## 📄 License
-
-This project is for academic purposes only.
