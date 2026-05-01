@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container mt-4">
-    <h2>🎬 Movies</h2>
+    <h2>Movies</h2>
 
     <%-- Search Bar --%>
    <form action="${pageContext.request.contextPath}/movies" method="get" class="d-flex mb-3">
