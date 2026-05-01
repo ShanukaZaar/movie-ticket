@@ -16,7 +16,7 @@
         <div class="col-md-5">
             <div class="card shadow">
                 <div class="card-body p-4">
-                    <h3 class="card-title text-center mb-4">🎬 Create Account</h3>
+                    <h3 class="card-title text-center mb-4">Create Account</h3>
 
                     <!-- Registration Form -->
                     <form action="${pageContext.request.contextPath}/register" method="post">
