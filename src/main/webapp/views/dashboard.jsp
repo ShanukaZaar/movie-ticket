@@ -49,7 +49,7 @@
         <div class="col-md-4 mb-3">
             <div class="card text-white bg-primary">
                 <div class="card-body">
-                    <h5 class="card-title">🎥 Movies</h5>
+                    <h5 class="card-title">Movies</h5>
                     <p class="card-text">Manage movies and listings.</p>
                 </div>
             </div>
@@ -58,7 +58,7 @@
         <div class="col-md-4 mb-3">
             <div class="card text-white bg-success">
                 <div class="card-body">
-                    <h5 class="card-title">🎟️ Bookings</h5>
+                    <h5 class="card-title">Bookings</h5>
                     <p class="card-text">View and manage bookings.</p>
                 </div>
             </div>
@@ -67,7 +67,7 @@
         <div class="col-md-4 mb-3">
             <div class="card text-white bg-warning">
                 <div class="card-body">
-                    <h5 class="card-title">📊 Reports</h5>
+                    <h5 class="card-title">Reports</h5>
                     <p class="card-text">View system reports.</p>
                 </div>
             </div>
