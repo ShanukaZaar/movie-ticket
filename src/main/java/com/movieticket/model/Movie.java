@@ -12,13 +12,15 @@ public class Movie {
     private String description;
     private String posterUrl;
     private String status;
+    private String trailerUrl;
+    private String posterPath;
 
     // --- Constructors ---
     public Movie() {}
 
     public Movie(int id, String title, String genre, int duration,
-                 String language, Date releaseDate, String description,
-                 String posterUrl, String status) {
+                String language, Date releaseDate, String description,
+                String posterUrl, String status) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -57,4 +59,10 @@ public class Movie {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public String getTrailerUrl() { return trailerUrl; }
+    public void setTrailerUrl(String trailerUrl) { this.trailerUrl = trailerUrl; }
+
+    public String getPosterPath() { return posterPath; }
+    public void setPosterPath(String posterPath) { this.posterPath = posterPath; }
 }

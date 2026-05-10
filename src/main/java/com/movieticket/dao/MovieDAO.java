@@ -15,8 +15,8 @@ public class MovieDAO {
         String sql = "SELECT * FROM movies";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 movies.add(mapRow(rs));
@@ -30,7 +30,7 @@ public class MovieDAO {
         String sql = "SELECT * FROM movies WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+            PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -45,7 +45,7 @@ public class MovieDAO {
         String sql = "SELECT * FROM movies WHERE title LIKE ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+            PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, "%" + keyword + "%");
             ResultSet rs = ps.executeQuery();
@@ -58,51 +58,55 @@ public class MovieDAO {
 
     // Add a new movie
     public boolean addMovie(Movie movie) throws SQLException {
-        String sql = "INSERT INTO movies (title, genre, duration, language, release_date, description, poster_url, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO movies (title, genre, duration, language, release_date, description, poster_url, poster_path, trailer_url, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+    try (Connection conn = DBConnection.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, movie.getTitle());
-            ps.setString(2, movie.getGenre());
-            ps.setInt(3, movie.getDuration());
-            ps.setString(4, movie.getLanguage());
-            ps.setDate(5, movie.getReleaseDate());
-            ps.setString(6, movie.getDescription());
-            ps.setString(7, movie.getPosterUrl());
-            ps.setString(8, movie.getStatus());
+        ps.setString(1, movie.getTitle());
+        ps.setString(2, movie.getGenre());
+        ps.setInt(3, movie.getDuration());
+        ps.setString(4, movie.getLanguage());
+        ps.setDate(5, movie.getReleaseDate());
+        ps.setString(6, movie.getDescription());
+        ps.setString(7, movie.getPosterUrl());
+        ps.setString(8, movie.getPosterPath());
+        ps.setString(9, movie.getTrailerUrl());
+        ps.setString(10, movie.getStatus());
 
-            return ps.executeUpdate() > 0;
-        }
+        return ps.executeUpdate() > 0;
     }
+}
 
     // Update a movie
     public boolean updateMovie(Movie movie) throws SQLException {
-        String sql = "UPDATE movies SET title=?, genre=?, duration=?, language=?, release_date=?, description=?, poster_url=?, status=? WHERE id=?";
+    String sql = "UPDATE movies SET title=?, genre=?, duration=?, language=?, release_date=?, description=?, poster_url=?, poster_path=?, trailer_url=?, status=? WHERE id=?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+    try (Connection conn = DBConnection.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, movie.getTitle());
-            ps.setString(2, movie.getGenre());
-            ps.setInt(3, movie.getDuration());
-            ps.setString(4, movie.getLanguage());
-            ps.setDate(5, movie.getReleaseDate());
-            ps.setString(6, movie.getDescription());
-            ps.setString(7, movie.getPosterUrl());
-            ps.setString(8, movie.getStatus());
-            ps.setInt(9, movie.getId());
+        ps.setString(1, movie.getTitle());
+        ps.setString(2, movie.getGenre());
+        ps.setInt(3, movie.getDuration());
+        ps.setString(4, movie.getLanguage());
+        ps.setDate(5, movie.getReleaseDate());
+        ps.setString(6, movie.getDescription());
+        ps.setString(7, movie.getPosterUrl());
+        ps.setString(8, movie.getPosterPath());
+        ps.setString(9, movie.getTrailerUrl());
+        ps.setString(10, movie.getStatus());
+        ps.setInt(11, movie.getId());
 
-            return ps.executeUpdate() > 0;
-        }
+        return ps.executeUpdate() > 0;
     }
+}
 
     // Delete a movie
     public boolean deleteMovie(int id) throws SQLException {
         String sql = "DELETE FROM movies WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+            PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             return ps.executeUpdate() > 0;
@@ -111,16 +115,21 @@ public class MovieDAO {
 
     // Helper: convert a database row → Movie object
     private Movie mapRow(ResultSet rs) throws SQLException {
-        return new Movie(
-            rs.getInt("id"),
-            rs.getString("title"),
-            rs.getString("genre"),
-            rs.getInt("duration"),
-            rs.getString("language"),
-            rs.getDate("release_date"),
-            rs.getString("description"),
-            rs.getString("poster_url"),
-            rs.getString("status")
-        );
-    }
+    Movie movie = new Movie(
+        rs.getInt("id"),
+        rs.getString("title"),
+        rs.getString("genre"),
+        rs.getInt("duration"),
+        rs.getString("language"),
+        rs.getDate("release_date"),
+        rs.getString("description"),
+        rs.getString("poster_url"),
+        rs.getString("status")
+    );
+    movie.setPosterPath(rs.getString("poster_path"));
+    movie.setTrailerUrl(rs.getString("trailer_url"));
+    return movie;
+}
+
+    
 }
