@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Payment Page</title>
+    <title>Payment</title>
 </head>
 <body>
 
 <h2>Make Payment</h2>
 
-<form action="/payment" method="post">
+<form action="${pageContext.request.contextPath}/payment" method="post">
 
-    Booking ID:<br>
+    <label>Booking ID:</label><br>
     <input type="number" name="bookingId" required><br><br>
 
-    Amount:<br>
-    <input type="number" name="amount" required><br><br>
+    <label>Amount:</label><br>
+    <input type="number" name="amount" step="0.01" required><br><br>
 
-    Payment Method:<br>
-    <select name="paymentMethod">
-        <option value="card">Card</option>
-        <option value="cash">Cash</option>
+    <label>Payment Method:</label><br>
+    <select name="paymentMethod" required>
+        <option value="credit_card">Credit Card</option>
+        <option value="debit_card">Debit Card</option>
+        <option value="online_banking">Online Banking</option>
     </select><br><br>
 
     <button type="submit">Pay Now</button>

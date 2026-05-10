@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Success</title>
+    <title>Payment Success</title>
 </head>
 <body>
 
-<h2>✅ Payment Successful!</h2>
+<h2>Payment Successful!</h2>
 
-<a href="payment.jsp">Make another payment</a>
+<p>Your payment has been saved successfully.</p>
+
+<a href="${pageContext.request.contextPath}/views/payment.jsp">Make another payment</a>
 
 </body>
 </html>
