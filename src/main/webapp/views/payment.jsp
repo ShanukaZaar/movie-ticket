@@ -26,5 +26,8 @@
 
 </form>
 
+<br>
+<a href="${pageContext.request.contextPath}/payment?action=list">View Payment Records</a>
+
 </body>
 </html>

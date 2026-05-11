@@ -9,7 +9,7 @@
 
 <p>Something went wrong. Please try again.</p>
 
-<a href="${pageContext.request.contextPath}/views/payment.jsp">Try again</a>
+<a href="${pageContext.request.contextPath}/payment">Try Again</a>
 
 </body>
 </html>
