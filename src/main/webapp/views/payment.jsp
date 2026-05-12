@@ -1,33 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Payment</title>
+    <title>Payment Checkout</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/payment.css">
 </head>
 <body>
 
-<h2>Make Payment</h2>
+<div class="payment-page">
+    <div class="payment-card">
 
-<form action="${pageContext.request.contextPath}/payment" method="post">
+        <div class="payment-header">
+            <h1>Payment Checkout</h1>
+            <p>Complete your movie ticket payment</p>
+        </div>
 
-    <label>Booking ID:</label><br>
-    <input type="number" name="bookingId" required><br><br>
+        <div class="payment-content">
 
-    <label>Amount:</label><br>
-    <input type="number" name="amount" step="0.01" required><br><br>
+            <div class="summary-box">
+                <h2>Booking Summary</h2>
 
-    <label>Payment Method:</label><br>
-    <select name="paymentMethod" required>
-        <option value="credit_card">Credit Card</option>
-        <option value="debit_card">Debit Card</option>
-        <option value="online_banking">Online Banking</option>
-    </select><br><br>
+                <div class="summary-row">
+                    <span>Movie</span>
+                    <strong>Selected Movie</strong>
+                </div>
 
-    <button type="submit">Pay Now</button>
+                <div class="summary-row">
+                    <span>Cinema</span>
+                    <strong>Main Theater</strong>
+                </div>
 
-</form>
+                <div class="summary-row">
+                    <span>Seats</span>
+                    <strong>A1, A2</strong>
+                </div>
+            </div>
 
-<br>
-<a href="${pageContext.request.contextPath}/payment?action=list">View Payment Records</a>
+            <form action="${pageContext.request.contextPath}/payment" method="get">
+
+                <input type="hidden" name="action" value="selectMethod">
+
+                <label>Booking ID</label>
+                <input type="number" name="bookingId" value="1" required>
+
+                <label>Amount</label>
+                <input type="number" name="amount" value="3010.24" step="0.01" required>
+
+                <label>Payment Method</label>
+                <select name="paymentMethod" required>
+                    <option value="credit_card">Credit Card</option>
+                    <option value="debit_card">Debit Card</option>
+                    <option value="online_banking">Online Banking</option>
+                </select>
+
+                <button class="pay-btn" type="submit">Pay Now</button>
+            </form>
+
+            <a class="records-link" href="${pageContext.request.contextPath}/payment?action=list">
+                View Payment Records
+            </a>
+
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
