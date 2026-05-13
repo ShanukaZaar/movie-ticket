@@ -6,7 +6,7 @@ document.getElementById("cardPaymentForm").addEventListener("submit", function (
         valid = false;
     }
 
-    document.querySelectorAll(".error").forEach(el => el.innerText = "");
+    document.querySelectorAll(".error-text").forEach(el => el.innerText = "");
 
     const name = document.getElementById("cardholderName").value.trim();
     const card = document.getElementById("cardNumber").value.trim();

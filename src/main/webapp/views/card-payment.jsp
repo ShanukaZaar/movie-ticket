@@ -1,84 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Card Payment</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/payment.css">
+    <title>CineBook | Card Payment</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/payment.css" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="payment-page">
+<nav class="navbar navbar-dark cine-navbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">CineBook</a>
+    </div>
+</nav>
+
+<div class="payment-wrapper">
+
     <div class="payment-card">
 
-        <div class="payment-header">
-            <h1>Card Payment</h1>
-            <p>Enter your card details securely</p>
-        </div>
+        <h2 class="text-center mb-2">Card Payment</h2>
+        <p class="text-center text-secondary mb-4">Enter your credit card details securely</p>
 
-        <div class="payment-content">
+        <% String error = (String) request.getAttribute("error"); %>
+        <% if (error != null) { %>
+        <div class="error-box"><%= error %></div>
+        <% } %>
 
-            <% String error = (String) request.getAttribute("error"); %>
-            <% if (error != null) { %>
-            <div class="error-box"><%= error %></div>
-            <% } %>
+        <form id="cardPaymentForm" action="${pageContext.request.contextPath}/card-payment" method="post">
 
-            <form id="cardPaymentForm" action="${pageContext.request.contextPath}/payment" method="post">
+            <input type="hidden" name="bookingId" value="<%= request.getAttribute("bookingId") != null ? request.getAttribute("bookingId") : "1" %>">
+            <input type="hidden" name="amount" value="<%= request.getAttribute("amount") != null ? request.getAttribute("amount") : "3010.24" %>">
 
-                <input type="hidden" name="bookingId" value="<%= request.getAttribute("bookingId") != null ? request.getAttribute("bookingId") : "1" %>">
-                <input type="hidden" name="amount" value="<%= request.getAttribute("amount") != null ? request.getAttribute("amount") : "3010.24" %>">
+            <div class="mb-3">
+                <label class="form-label">Cardholder Name</label>
+                <input type="text" class="form-control cine-input" name="cardholderName" id="cardholderName" required>
+                <small class="error-text" id="nameError"></small>
+            </div>
 
-                <label>Cardholder Name</label>
-                <input type="text" name="cardholderName" id="cardholderName" required>
-                <small class="error" id="nameError"></small>
+            <div class="mb-3">
+                <label class="form-label">Card Number</label>
+                <input type="text" class="form-control cine-input" name="cardNumber" id="cardNumber" maxlength="16" required>
+                <small class="error-text" id="cardError"></small>
+            </div>
 
-                <label>Card Number</label>
-                <input type="text" name="cardNumber" id="cardNumber" maxlength="16" required>
-                <small class="error" id="cardError"></small>
-
-                <div class="input-row">
-                    <div>
-                        <label>Expiry Month</label>
-                        <select name="expiryMonth" id="expiryMonth" required>
-                            <option value="">MM</option>
-                            <% for (int i = 1; i <= 12; i++) { %>
-                            <option value="<%= String.format("%02d", i) %>"><%= String.format("%02d", i) %></option>
-                            <% } %>
-                        </select>
-                        <small class="error" id="monthError"></small>
-                    </div>
-
-                    <div>
-                        <label>Expiry Year</label>
-                        <select name="expiryYear" id="expiryYear" required>
-                            <option value="">YYYY</option>
-                            <% for (int y = 2026; y <= 2035; y++) { %>
-                            <option value="<%= y %>"><%= y %></option>
-                            <% } %>
-                        </select>
-                        <small class="error" id="yearError"></small>
-                    </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Expiry Month</label>
+                    <select class="form-select cine-input" name="expiryMonth" id="expiryMonth" required>
+                        <option value="">MM</option>
+                        <% for (int i = 1; i <= 12; i++) { %>
+                        <option value="<%= String.format("%02d", i) %>"><%= String.format("%02d", i) %></option>
+                        <% } %>
+                    </select>
+                    <small class="error-text" id="monthError"></small>
                 </div>
 
-                <label>CVV</label>
-                <input type="password" name="cvv" id="cvv" maxlength="3" required>
-                <small class="error" id="cvvError"></small>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Expiry Year</label>
+                    <select class="form-select cine-input" name="expiryYear" id="expiryYear" required>
+                        <option value="">YYYY</option>
+                        <% for (int y = 2026; y <= 2035; y++) { %>
+                        <option value="<%= y %>"><%= y %></option>
+                        <% } %>
+                    </select>
+                    <small class="error-text" id="yearError"></small>
+                </div>
+            </div>
 
-                <label>Billing Email</label>
-                <input type="email" name="billingEmail" id="billingEmail" required>
-                <small class="error" id="emailError"></small>
+            <div class="mb-3">
+                <label class="form-label">CVV</label>
+                <input type="password" class="form-control cine-input" name="cvv" id="cvv" maxlength="3" required>
+                <small class="error-text" id="cvvError"></small>
+            </div>
 
-                <label>Payment Amount</label>
-                <input type="number" value="<%= request.getAttribute("amount") != null ? request.getAttribute("amount") : "3010.24" %>" readonly>
+            <div class="mb-3">
+                <label class="form-label">Billing Email</label>
+                <input type="email" class="form-control cine-input" name="billingEmail" id="billingEmail" required>
+                <small class="error-text" id="emailError"></small>
+            </div>
 
-                <button class="pay-btn" type="submit">Submit Payment</button>
+            <div class="mb-4">
+                <label class="form-label">Amount</label>
+                <input type="number" class="form-control cine-input" value="<%= request.getAttribute("amount") != null ? request.getAttribute("amount") : "3010.24" %>" readonly>
+            </div>
 
-                <a class="back-link" href="${pageContext.request.contextPath}/payment">
-                    Back to Booking Summary
-                </a>
+            <button class="btn cine-btn w-100" type="submit">Pay Securely</button>
 
-            </form>
+            <a class="back-link" href="${pageContext.request.contextPath}/payment">
+                Back to Booking Summary
+            </a>
 
-        </div>
+        </form>
+
     </div>
+
 </div>
 
 <script src="${pageContext.request.contextPath}/js/payment.js"></script>
