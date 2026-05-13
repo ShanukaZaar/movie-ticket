@@ -6,7 +6,6 @@ import com.movieticket.model.Movie;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
 import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
@@ -61,6 +60,8 @@ public class MovieServlet extends HttpServlet {
                 addMovie(request, response);
             } else if ("update".equals(action)) {
                 updateMovie(request, response);
+            } else if ("payment".equals(action)) {
+                processPayment(request, response);
             }
         } catch (Exception e) {
             throw new ServletException(e);
@@ -137,5 +138,19 @@ public class MovieServlet extends HttpServlet {
         movie.setPosterUrl(request.getParameter("posterUrl"));
         movie.setStatus(request.getParameter("status"));
         return movie;
+    }
+
+    // Handle payment processing
+    private void processPayment(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        String bookingId = request.getParameter("bookingId");
+        String amount = request.getParameter("amount");
+        String paymentMethod = request.getParameter("paymentMethod");
+
+        System.out.println("Processing payment for Booking ID: " + bookingId);
+        System.out.println("Amount: " + amount);
+        System.out.println("Payment Method: " + paymentMethod);
+
+        response.sendRedirect(request.getContextPath() + "/views/payment-success.jsp");
     }
 }
