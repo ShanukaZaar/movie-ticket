@@ -15,7 +15,7 @@
         <div class="col-md-5">
             <div class="card shadow">
                 <div class="card-body p-4">
-                    <h3 class="card-title text-center mb-4">🎬 Movie Ticket Login</h3>
+                    <h3 class="card-title text-center mb-4">Movie Ticket Login</h3>
 
                     <%-- Show success message after registration --%>
                     <% if ("true".equals(request.getParameter("registered"))) { %>

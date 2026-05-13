@@ -177,7 +177,7 @@
 <%-- Newly Released Movies Slider --%>
 <section class="movies-section" id="movies-section">
     <div class="container">
-        <h2 class="section-title">🎬 Newly <span>Released</span> Movies</h2>
+        <h2 class="section-title">Newly <span>Released</span> Movies</h2>
 
         <c:choose>
             <c:when test="${not empty movies}">
@@ -327,7 +327,7 @@
 
             <%-- Brand --%>
             <div class="col-md-4 mb-4">
-                <h4 style="color:#e50914; font-weight:900; font-size:1.8rem;">🎬 CineBook</h4>
+                <h4 style="color:#e50914; font-weight:900; font-size:1.8rem;">CineBook</h4>
                 <p class="mt-3">Your ultimate destination for movie ticket booking. Experience cinema like never before with our easy and fast booking system.</p>
                 <div class="mt-3">
                     <a href="https://facebook.com" target="_blank" class="social-icon"><i class="bi bi-facebook"></i></a>
@@ -380,27 +380,18 @@
 
         </div>
         <div class="footer-bottom">
-            <p>© 2024 CineBook. All rights reserved. Made with ❤️ for movie lovers.</p>
+            <p>© 2024 CineBook. All rights reserved by WD105. </p>
         </div>
     </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Auto-slide every 5 seconds
+    // Auto-slide carousel
     var myCarousel = document.getElementById('movieCarousel');
     if (myCarousel) {
-        var carousel = new bootstrap.Carousel(myCarousel, { interval: 5000, wrap: true });
+        new bootstrap.Carousel(myCarousel, { interval: 5000, wrap: true });
     }
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) target.scrollIntoView({ behavior: 'smooth' });
-        });
-    });
 </script>
 </body>
 </html>

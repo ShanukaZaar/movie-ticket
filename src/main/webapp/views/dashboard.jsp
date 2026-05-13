@@ -13,7 +13,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">🎬 MovieTicket</a>
+        <a class="navbar-brand" href="#">MovieTicket</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -48,7 +48,7 @@
         <div class="col-md-4 mb-3">
             <div class="card text-white bg-primary">
                 <div class="card-body">
-                    <h5 class="card-title">🎬 Movies</h5>
+                    <h5 class="card-title">Movies</h5>
                     <p class="card-text">Browse movie listings.</p>
                     <a href="${pageContext.request.contextPath}/movies?action=list"
                        class="btn btn-light btn-sm">View Movies</a>
@@ -61,7 +61,7 @@
             <div class="col-md-4 mb-3">
                 <div class="card text-white bg-success">
                     <div class="card-body">
-                        <h5 class="card-title">➕ Add Movie</h5>
+                        <h5 class="card-title">Add Movie</h5>
                         <p class="card-text">Add a new movie to the system.</p>
                         <a href="${pageContext.request.contextPath}/movies?action=new"
                            class="btn btn-light btn-sm">Add Movie</a>
@@ -71,7 +71,7 @@
             <div class="col-md-4 mb-3">
                 <div class="card text-white bg-warning">
                     <div class="card-body">
-                        <h5 class="card-title">📊 Reports</h5>
+                        <h5 class="card-title">Reports</h5>
                         <p class="card-text">View system reports.</p>
                     </div>
                 </div>

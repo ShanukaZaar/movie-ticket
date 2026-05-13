@@ -75,7 +75,7 @@ public class RegisterServlet extends HttpServlet {
             boolean success = userDAO.registerUser(user);
 
             if (success) {
-                response.sendRedirect(request.getContextPath() + "/login?registered=true");
+                response.sendRedirect(request.getContextPath() + "/home?registered=true");
             } else {
                 request.setAttribute("error", "Registration failed! Try again.");
                 request.setAttribute("registerType", registerType);

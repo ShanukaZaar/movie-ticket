@@ -24,7 +24,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="text-center mb-4">
-                <a href="${pageContext.request.contextPath}/home" style="color:#e50914; font-size:1.8rem; font-weight:900; text-decoration:none;">🎬 CineBook</a>
+                <a href="${pageContext.request.contextPath}/home" style="color:#e50914; font-size:1.8rem; font-weight:900; text-decoration:none;">CineBook</a>
             </div>
             <div class="register-card">
                 <h3 class="text-center mb-4">Create Account</h3>

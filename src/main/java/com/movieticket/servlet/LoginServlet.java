@@ -45,11 +45,10 @@ public class LoginServlet extends HttpServlet {
 
                 // Redirect based on role
                 if ("admin".equals(user.getRole())) {
-                    response.sendRedirect(request.getContextPath() + "/dashboard");
+                    response.sendRedirect(request.getContextPath() + "/home");
                 } else {
-                    response.sendRedirect(request.getContextPath() + "/movies?action=list");
+                    response.sendRedirect(request.getContextPath() + "/home");
                 }
-
             } else {
                 // Login failed
                 request.setAttribute("error", "Invalid email or password!");
