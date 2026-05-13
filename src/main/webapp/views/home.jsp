@@ -104,7 +104,7 @@
 <%-- Navbar --%>
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/home">🎬 CineBook</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/home">CineBook</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -140,7 +140,7 @@
                 <p style="color:#e50914; font-weight:700; letter-spacing:3px; text-transform:uppercase;">Welcome to CineBook</p>
                 <h1>Experience <span>Cinema</span> Like Never Before</h1>
                 <p>Book your favorite movie tickets online. Choose your seats, pick your showtime, and enjoy the magic of movies.</p>
-                <a href="${pageContext.request.contextPath}/movies?action=list" class="btn btn-book">🎬 Book Now</a>
+                <a href="${pageContext.request.contextPath}/movies?action=list" class="btn btn-book">Book Now</a>
                 <a href="#movies-section" class="btn btn-explore">Explore Movies</a>
             </div>
             <div class="col-lg-5 d-none d-lg-block text-center">
