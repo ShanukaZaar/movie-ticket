@@ -14,7 +14,7 @@ public class DBConnection {
 
     private static final String URL = "jdbc:mysql://localhost:3306/movie_db";
     private static final String USER = "root";
-    private static final String PASSWORD = "Shanuka123@";
+    private static final String PASSWORD = "mma123";
 
     static {
         try {
