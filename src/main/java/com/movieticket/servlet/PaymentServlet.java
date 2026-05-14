@@ -1,5 +1,6 @@
 package com.movieticket.servlet;
 
+import com.movieticket.dao.BookingDAO;
 import com.movieticket.dao.PaymentDAO;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import java.io.IOException;
 public class PaymentServlet extends HttpServlet {
 
     private final PaymentDAO paymentDAO = new PaymentDAO();
+    private final BookingDAO bookingDAO = new BookingDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,11 +41,14 @@ public class PaymentServlet extends HttpServlet {
         }
 
         if ("selectMethod".equals(action)) {
+            int bookingId = Integer.parseInt(request.getParameter("bookingId"));
             String paymentMethod = request.getParameter("paymentMethod");
 
+            double calculatedAmount = bookingDAO.calculateBookingAmount(bookingId);
+
             if ("credit_card".equals(paymentMethod)) {
-                request.setAttribute("bookingId", request.getParameter("bookingId"));
-                request.setAttribute("amount", request.getParameter("amount"));
+                request.setAttribute("bookingId", bookingId);
+                request.setAttribute("amount", calculatedAmount);
                 request.getRequestDispatcher("/views/card-payment.jsp").forward(request, response);
                 return;
             }
@@ -66,7 +71,6 @@ public class PaymentServlet extends HttpServlet {
             String paymentStatus = request.getParameter("paymentStatus");
 
             paymentDAO.updatePaymentStatus(id, paymentStatus);
-
             response.sendRedirect(request.getContextPath() + "/payment?action=list");
         }
     }

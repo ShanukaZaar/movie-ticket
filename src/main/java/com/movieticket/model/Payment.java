@@ -11,12 +11,15 @@ public class Payment {
     private String cardholderName;
     private String lastFourDigits;
     private String billingEmail;
+    private String transactionId;
+    private String emailSent;
     private Timestamp paymentDate;
 
     public Payment() {}
 
     public Payment(int bookingId, double amount, String paymentMethod, String paymentStatus,
-                   String cardholderName, String lastFourDigits, String billingEmail) {
+                   String cardholderName, String lastFourDigits, String billingEmail,
+                   String transactionId, String emailSent) {
         this.bookingId = bookingId;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
@@ -24,6 +27,8 @@ public class Payment {
         this.cardholderName = cardholderName;
         this.lastFourDigits = lastFourDigits;
         this.billingEmail = billingEmail;
+        this.transactionId = transactionId;
+        this.emailSent = emailSent;
     }
 
     public int getId() { return id; }
@@ -49,6 +54,12 @@ public class Payment {
 
     public String getBillingEmail() { return billingEmail; }
     public void setBillingEmail(String billingEmail) { this.billingEmail = billingEmail; }
+
+    public String getTransactionId() { return transactionId; }
+    public void setTransactionId(String transactionId) { this.transactionId = transactionId; }
+
+    public String getEmailSent() { return emailSent; }
+    public void setEmailSent(String emailSent) { this.emailSent = emailSent; }
 
     public Timestamp getPaymentDate() { return paymentDate; }
     public void setPaymentDate(Timestamp paymentDate) { this.paymentDate = paymentDate; }
