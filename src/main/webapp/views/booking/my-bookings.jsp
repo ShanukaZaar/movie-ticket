@@ -37,7 +37,7 @@
 
 <div class="page-header">
     <div class="container">
-        <h1>🎟️ My <span>Bookings</span></h1>
+        <h1>My <span>Bookings</span></h1>
         <p style="color:#aaa;">View and manage your movie ticket bookings</p>
     </div>
 </div>

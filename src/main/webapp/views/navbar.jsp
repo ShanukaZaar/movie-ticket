@@ -84,18 +84,37 @@
                                 href="${pageContext.request.contextPath}/movies?action=list">Movies</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Shows</a>
+                            <a class="nav-link ${currentPage == 'theater' ? 'active' : ''}"
+                                href="${pageContext.request.contextPath}/theater?action=shows">Shows</a>
                         </li>
                         <li class="nav-item">
-    <a class="nav-link ${currentPage == 'booking' ? 'active' : ''}"
-       href="${pageContext.request.contextPath}/booking?action=myBookings">
-        <i class="bi bi-ticket-perforated"></i> My Bookings
-    </a>
-</li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Theaters</a>
+                            <a class="nav-link ${currentPage == 'booking' ? 'active' : ''}"
+                                href="${pageContext.request.contextPath}/booking?action=myBookings">
+                                <i class="bi bi-ticket-perforated"></i> My Bookings
+                            </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link ${currentPage == 'theater' ? 'active' : ''}"
+                                href="${pageContext.request.contextPath}/theater?action=list">Theaters</a>
+                        </li>
+
+                        <%-- Admin only links --%>
+                            <c:if test="${sessionScope.userRole == 'admin'}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/dashboard"
+                                        style="color:#ffffff !important; font-weight:700;">
+                                        <i class="bi bi-speedometer2"></i> Dashboard
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/theater?action=list"
+                                        style="color:#ffffff !important; font-weight:700;">
+                                        <i class="bi bi-building"></i> Manage Theaters
+                                    </a>
+                                </li>
+                            </c:if>
                     </ul>
+
                     <ul class="navbar-nav">
                         <c:choose>
                             <c:when test="${sessionScope.user != null}">
@@ -104,14 +123,40 @@
                                         👤 ${sessionScope.userName}
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item"
+                                        <li>
+                                            <a class="dropdown-item"
                                                 href="${pageContext.request.contextPath}/dashboard">
-                                                <i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                                                <i class="bi bi-speedometer2"></i> Dashboard
+                                            </a>
+                                        </li>
+                                        <c:if test="${sessionScope.userRole == 'admin'}">
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="${pageContext.request.contextPath}/theater?action=list">
+                                                    <i class="bi bi-building"></i> Theaters
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="${pageContext.request.contextPath}/theater?action=shows">
+                                                    <i class="bi bi-camera-reels"></i> Shows
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="${pageContext.request.contextPath}/booking?action=allBookings">
+                                                    <i class="bi bi-list-ul"></i> All Bookings
+                                                </a>
+                                            </li>
+                                        </c:if>
                                         <li>
                                             <hr class="dropdown-divider" style="border-color:#333;">
                                         </li>
-                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">
-                                                <i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                                        <li>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">
+                                                <i class="bi bi-box-arrow-right"></i> Logout
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                             </c:when>
