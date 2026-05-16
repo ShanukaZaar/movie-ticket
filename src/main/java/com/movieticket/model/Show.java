@@ -14,6 +14,7 @@ public class Show {
     private String screenName;
     private String moviePosterUrl;
     private String moviePosterPath;
+    private int theaterId;
 
     public Show() {}
 
@@ -49,4 +50,7 @@ public class Show {
 
     public String getMoviePosterPath() { return moviePosterPath; }
     public void setMoviePosterPath(String moviePosterPath) { this.moviePosterPath = moviePosterPath; }
+
+    public int getTheaterId() { return theaterId; }
+    public void setTheaterId(int theaterId) { this.theaterId = theaterId; }
 }

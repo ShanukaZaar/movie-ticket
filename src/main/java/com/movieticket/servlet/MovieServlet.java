@@ -14,7 +14,10 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
+// <<<<<<< HEAD
+// =======
 
+// >>>>>>> main
 @WebServlet("/movies")
 public class MovieServlet extends HttpServlet {
 
