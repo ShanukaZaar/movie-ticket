@@ -15,16 +15,16 @@ public class BookingDAO {
     public List<Show> getShowsByMovie(int movieId) throws SQLException {
         List<Show> shows = new ArrayList<>();
         String sql = "SELECT s.*, m.title as movie_title, m.poster_url, m.poster_path, " +
-                     "sc.screen_name, t.name as theater_name " +
-                     "FROM shows s " +
-                     "JOIN movies m ON s.movie_id = m.id " +
-                     "JOIN screens sc ON s.screen_id = sc.id " +
-                     "JOIN theaters t ON sc.theater_id = t.id " +
-                     "WHERE s.movie_id = ? AND s.show_date >= CURDATE() " +
-                     "ORDER BY s.show_date, s.show_time";
+                "sc.screen_name, t.name as theater_name " +
+                "FROM shows s " +
+                "JOIN movies m ON s.movie_id = m.id " +
+                "JOIN screens sc ON s.screen_id = sc.id " +
+                "JOIN theaters t ON sc.theater_id = t.id " +
+                "WHERE s.movie_id = ? AND s.show_date >= CURDATE() " +
+                "ORDER BY s.show_date, s.show_time";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, movieId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -49,15 +49,15 @@ public class BookingDAO {
     // Get show by ID
     public Show getShowById(int showId) throws SQLException {
         String sql = "SELECT s.*, m.title as movie_title, m.poster_url, m.poster_path, " +
-                     "sc.screen_name, t.name as theater_name " +
-                     "FROM shows s " +
-                     "JOIN movies m ON s.movie_id = m.id " +
-                     "JOIN screens sc ON s.screen_id = sc.id " +
-                     "JOIN theaters t ON sc.theater_id = t.id " +
-                     "WHERE s.id = ?";
+                "sc.screen_name, t.name as theater_name " +
+                "FROM shows s " +
+                "JOIN movies m ON s.movie_id = m.id " +
+                "JOIN screens sc ON s.screen_id = sc.id " +
+                "JOIN theaters t ON sc.theater_id = t.id " +
+                "WHERE s.id = ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, showId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -83,15 +83,15 @@ public class BookingDAO {
     public List<Seat> getSeatsByShow(int showId, int screenId) throws SQLException {
         List<Seat> seats = new ArrayList<>();
         String sql = "SELECT s.*, " +
-                     "CASE WHEN bs.seat_id IS NOT NULL THEN 1 ELSE 0 END as is_booked " +
-                     "FROM seats s " +
-                     "LEFT JOIN booking_seats bs ON s.id = bs.seat_id " +
-                     "LEFT JOIN bookings b ON bs.booking_id = b.id AND b.show_id = ? AND b.status != 'cancelled' " +
-                     "WHERE s.screen_id = ? " +
-                     "ORDER BY s.seat_number";
+                "CASE WHEN bs.seat_id IS NOT NULL THEN 1 ELSE 0 END as is_booked " +
+                "FROM seats s " +
+                "LEFT JOIN booking_seats bs ON s.id = bs.seat_id " +
+                "LEFT JOIN bookings b ON bs.booking_id = b.id AND b.show_id = ? AND b.status != 'cancelled' " +
+                "WHERE s.screen_id = ? " +
+                "ORDER BY s.seat_number";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, showId);
             ps.setInt(2, screenId);
             ResultSet rs = ps.executeQuery();
@@ -113,14 +113,15 @@ public class BookingDAO {
         String sql = "INSERT INTO bookings (user_id, show_id, total_amount, status) VALUES (?, ?, ?, 'confirmed')";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, userId);
             ps.setInt(2, showId);
             ps.setDouble(3, totalAmount);
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) return rs.getInt(1);
+            if (rs.next())
+                return rs.getInt(1);
         }
         return -1;
     }
@@ -130,7 +131,7 @@ public class BookingDAO {
         String sql = "INSERT INTO booking_seats (booking_id, seat_id) VALUES (?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             for (int seatId : seatIds) {
                 ps.setInt(1, bookingId);
                 ps.setInt(2, seatId);
@@ -144,17 +145,17 @@ public class BookingDAO {
     public List<Booking> getBookingsByUser(int userId) throws SQLException {
         List<Booking> bookings = new ArrayList<>();
         String sql = "SELECT b.*, m.title as movie_title, t.name as theater_name, " +
-                     "s.show_date, s.show_time, sc.screen_name " +
-                     "FROM bookings b " +
-                     "JOIN shows s ON b.show_id = s.id " +
-                     "JOIN movies m ON s.movie_id = m.id " +
-                     "JOIN screens sc ON s.screen_id = sc.id " +
-                     "JOIN theaters t ON sc.theater_id = t.id " +
-                     "WHERE b.user_id = ? " +
-                     "ORDER BY b.booking_date DESC";
+                "s.show_date, s.show_time, sc.screen_name " +
+                "FROM bookings b " +
+                "JOIN shows s ON b.show_id = s.id " +
+                "JOIN movies m ON s.movie_id = m.id " +
+                "JOIN screens sc ON s.screen_id = sc.id " +
+                "JOIN theaters t ON sc.theater_id = t.id " +
+                "WHERE b.user_id = ? " +
+                "ORDER BY b.booking_date DESC";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -179,16 +180,16 @@ public class BookingDAO {
     // Get booking by ID with seat numbers
     public Booking getBookingById(int bookingId) throws SQLException {
         String sql = "SELECT b.*, m.title as movie_title, t.name as theater_name, " +
-                     "s.show_date, s.show_time, sc.screen_name " +
-                     "FROM bookings b " +
-                     "JOIN shows s ON b.show_id = s.id " +
-                     "JOIN movies m ON s.movie_id = m.id " +
-                     "JOIN screens sc ON s.screen_id = sc.id " +
-                     "JOIN theaters t ON sc.theater_id = t.id " +
-                     "WHERE b.id = ?";
+                "s.show_date, s.show_time, sc.screen_name " +
+                "FROM bookings b " +
+                "JOIN shows s ON b.show_id = s.id " +
+                "JOIN movies m ON s.movie_id = m.id " +
+                "JOIN screens sc ON s.screen_id = sc.id " +
+                "JOIN theaters t ON sc.theater_id = t.id " +
+                "WHERE b.id = ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, bookingId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -205,7 +206,6 @@ public class BookingDAO {
                 booking.setShowTime(rs.getString("show_time"));
                 booking.setScreenName(rs.getString("screen_name"));
 
-                // Get seat numbers
                 List<String> seatNumbers = getSeatNumbersByBooking(bookingId);
                 booking.setSeatNumbers(seatNumbers);
                 return booking;
@@ -218,11 +218,11 @@ public class BookingDAO {
     public List<String> getSeatNumbersByBooking(int bookingId) throws SQLException {
         List<String> seatNumbers = new ArrayList<>();
         String sql = "SELECT s.seat_number FROM seats s " +
-                     "JOIN booking_seats bs ON s.id = bs.seat_id " +
-                     "WHERE bs.booking_id = ?";
+                "JOIN booking_seats bs ON s.id = bs.seat_id " +
+                "WHERE bs.booking_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, bookingId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -237,26 +237,50 @@ public class BookingDAO {
         String sql = "UPDATE bookings SET status = 'cancelled' WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, bookingId);
             return ps.executeUpdate() > 0;
         }
+    }
+
+    // Update booking status to paid (added from payment component)
+    public boolean updateBookingStatusToPaid(int bookingId) throws SQLException {
+        String sql = "UPDATE bookings SET status = 'confirmed' WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, bookingId);
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    // Get booking amount
+    public double getBookingAmount(int bookingId) throws SQLException {
+        String sql = "SELECT total_amount FROM bookings WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, bookingId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble("total_amount");
+            }
+        }
+        return 0.0;
     }
 
     // Get all bookings (admin)
     public List<Booking> getAllBookings() throws SQLException {
         List<Booking> bookings = new ArrayList<>();
         String sql = "SELECT b.*, m.title as movie_title, t.name as theater_name, " +
-                     "s.show_date, s.show_time, sc.screen_name " +
-                     "FROM bookings b " +
-                     "JOIN shows s ON b.show_id = s.id " +
-                     "JOIN movies m ON s.movie_id = m.id " +
-                     "JOIN screens sc ON s.screen_id = sc.id " +
-                     "JOIN theaters t ON sc.theater_id = t.id " +
-                     "ORDER BY b.booking_date DESC";
+                "s.show_date, s.show_time, sc.screen_name " +
+                "FROM bookings b " +
+                "JOIN shows s ON b.show_id = s.id " +
+                "JOIN movies m ON s.movie_id = m.id " +
+                "JOIN screens sc ON s.screen_id = sc.id " +
+                "JOIN theaters t ON sc.theater_id = t.id " +
+                "ORDER BY b.booking_date DESC";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Booking booking = new Booking();

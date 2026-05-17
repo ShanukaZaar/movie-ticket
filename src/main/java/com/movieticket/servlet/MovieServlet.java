@@ -14,10 +14,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
-// <<<<<<< HEAD
-// =======
-
-// >>>>>>> main
 @WebServlet("/movies")
 public class MovieServlet extends HttpServlet {
 
@@ -26,14 +22,12 @@ public class MovieServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-    // Auto-create posters folder when app starts
-    String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
-    File uploadDir = new File(uploadPath);
-    if (!uploadDir.exists()) {
-        uploadDir.mkdir();
+        String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
     }
-}
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -60,7 +54,6 @@ public class MovieServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            // Parse multipart form first to get all fields including "action"
             Movie movie = new Movie();
             String action = null;
             String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
@@ -100,7 +93,6 @@ public class MovieServlet extends HttpServlet {
                             break;
                     }
                 } else {
-                    // File upload field
                     if (item.getName() != null && !item.getName().isEmpty() && item.getSize() > 0) {
                         String fileName = System.currentTimeMillis() + "_" + item.getName();
                         File file = new File(uploadPath + File.separator + fileName);
@@ -110,7 +102,6 @@ public class MovieServlet extends HttpServlet {
                 }
             }
 
-            // Now use action to decide what to do
             if ("add".equals(action)) {
                 movieDAO.addMovie(movie);
                 response.sendRedirect(request.getContextPath() + "/movies?action=list");

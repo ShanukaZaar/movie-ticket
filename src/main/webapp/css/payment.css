@@ -1,0 +1,120 @@
+body {
+    background: #0a0a0a;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.cine-navbar {
+    background: #111;
+    border-bottom: 1px solid #e50914;
+}
+
+.navbar-brand {
+    color: #e50914 !important;
+    font-size: 28px;
+}
+
+.payment-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px 15px;
+}
+
+.payment-card {
+    width: 100%;
+    max-width: 520px;
+    background: #111;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 0 30px rgba(229, 9, 20, 0.25);
+    border: 1px solid #222;
+}
+
+.summary-box {
+    background: #181818;
+    padding: 20px;
+    border-radius: 18px;
+    border: 1px solid #333;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+    color: #ddd;
+}
+
+.summary-row strong {
+    color: #fff;
+}
+
+.cine-input {
+    background: #1c1c1c;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 12px;
+    padding: 13px;
+}
+
+.cine-input:focus {
+    background: #1c1c1c;
+    color: #fff;
+    border-color: #e50914;
+    box-shadow: 0 0 0 0.25rem rgba(229, 9, 20, 0.25);
+}
+
+.cine-btn {
+    background: #e50914;
+    color: #fff;
+    border-radius: 14px;
+    padding: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.cine-btn:hover {
+    background: #b00610;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.record-link,
+.back-link {
+    display: block;
+    margin-top: 18px;
+    text-align: center;
+    color: #e50914;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.record-link:hover,
+.back-link:hover {
+    color: #ff3b45;
+}
+
+.error-text {
+    color: #ff4d4d;
+    font-size: 13px;
+}
+
+.error-box {
+    background: rgba(229, 9, 20, 0.15);
+    border: 1px solid #e50914;
+    color: #ffb3b3;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 18px;
+}
+
+.success-icon {
+    font-size: 70px;
+    color: #22c55e;
+}
+
+.failed-icon {
+    font-size: 70px;
+    color: #e50914;
+}
