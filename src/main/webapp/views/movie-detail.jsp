@@ -260,7 +260,8 @@
                                                         <c:if test="${movie.status == 'now_showing'}">
                                                             <c:choose>
                                                                 <c:when test="${sessionScope.user != null}">
-                                                                    <a href="#reservation" class="btn btn-book">
+                                                                    <a href="${pageContext.request.contextPath}/booking?action=shows&movieId=${movie.id}"
+                                                                        class="btn btn-book">
                                                                         <i class="bi bi-ticket-perforated"></i> Book
                                                                         Tickets
                                                                     </a>

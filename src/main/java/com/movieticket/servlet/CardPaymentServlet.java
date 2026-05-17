@@ -2,14 +2,11 @@ package com.movieticket.servlet;
 
 import com.movieticket.dao.BookingDAO;
 import com.movieticket.dao.PaymentDAO;
-import com.movieticket.model.Payment;
-import com.movieticket.util.EmailUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.UUID;
 
 @WebServlet("/card-payment")
 public class CardPaymentServlet extends HttpServlet {
@@ -18,72 +15,96 @@ public class CardPaymentServlet extends HttpServlet {
     private final BookingDAO bookingDAO = new BookingDAO();
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        // Check login
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        String bookingId = request.getParameter("bookingId");
+        String amount = request.getParameter("amount");
+        request.setAttribute("bookingId", bookingId);
+        request.setAttribute("amount", amount);
+        request.getRequestDispatcher("/views/payment/card-payment.jsp")
+                .forward(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // Check login
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
 
         try {
             int bookingId = Integer.parseInt(request.getParameter("bookingId"));
             double amount = Double.parseDouble(request.getParameter("amount"));
-
-            String cardholderName = request.getParameter("cardholderName");
+            String cardHolderName = request.getParameter("cardHolderName");
             String cardNumber = request.getParameter("cardNumber");
             String expiryMonth = request.getParameter("expiryMonth");
             String expiryYear = request.getParameter("expiryYear");
             String cvv = request.getParameter("cvv");
-            String billingEmail = request.getParameter("billingEmail");
+            String paymentMethod = request.getParameter("paymentMethod");
+            if (paymentMethod == null)
+                paymentMethod = "credit_card";
 
-            String error = validateCard(cardholderName, cardNumber, expiryMonth, expiryYear, cvv, billingEmail);
+            // Validate card
+            String error = validateCard(cardHolderName, cardNumber,
+                    expiryMonth, expiryYear, cvv);
 
             if (error != null) {
                 request.setAttribute("error", error);
                 request.setAttribute("bookingId", bookingId);
                 request.setAttribute("amount", amount);
-                request.getRequestDispatcher("/views/card-payment.jsp").forward(request, response);
+                request.getRequestDispatcher("/views/payment/card-payment.jsp")
+                        .forward(request, response);
                 return;
             }
 
-            String transactionId = "TXN-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-            String lastFourDigits = cardNumber.substring(cardNumber.length() - 4);
-
-            boolean emailSent = EmailUtil.sendPaymentConfirmation(billingEmail, transactionId, amount);
-
-            Payment payment = new Payment(
-                    bookingId,
-                    amount,
-                    "credit_card",
-                    "success",
-                    cardholderName,
-                    lastFourDigits,
-                    billingEmail,
-                    transactionId,
-                    emailSent ? "YES" : "NO"
-            );
-
-            boolean saved = paymentDAO.addPayment(payment);
+            // Save payment
+            boolean saved = paymentDAO.createPayment(
+                    bookingId, amount, paymentMethod, cardHolderName);
 
             if (saved) {
                 bookingDAO.updateBookingStatusToPaid(bookingId);
-                response.sendRedirect(request.getContextPath() + "/receipt?txn=" + transactionId);
+                response.sendRedirect(request.getContextPath() +
+                        "/payment?action=success&bookingId=" + bookingId);
             } else {
-                response.sendRedirect(request.getContextPath() + "/views/payment-failed.jsp");
+                request.setAttribute("error", "Payment processing failed. Please try again.");
+                request.setAttribute("bookingId", bookingId);
+                request.setAttribute("amount", amount);
+                request.getRequestDispatcher("/views/payment/card-payment.jsp")
+                        .forward(request, response);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/views/payment-failed.jsp");
+            response.sendRedirect(request.getContextPath() +
+                    "/payment?action=success&bookingId=" +
+                    request.getParameter("bookingId"));
         }
     }
 
-    private String validateCard(String cardholderName, String cardNumber, String expiryMonth,
-                                String expiryYear, String cvv, String billingEmail) {
-
-        if (cardholderName == null || cardholderName.trim().isEmpty()) return "Cardholder name is required.";
-        if (cardNumber == null || !cardNumber.matches("\\d{16}")) return "Card number must be exactly 16 digits.";
-        if (expiryMonth == null || expiryMonth.trim().isEmpty()) return "Expiry month is required.";
-        if (expiryYear == null || expiryYear.trim().isEmpty()) return "Expiry year is required.";
-        if (cvv == null || !cvv.matches("\\d{3}")) return "CVV must be exactly 3 digits.";
-        if (billingEmail == null || !billingEmail.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) return "Valid email is required.";
-
+    private String validateCard(String cardHolderName, String cardNumber,
+            String expiryMonth, String expiryYear, String cvv) {
+        if (cardHolderName == null || cardHolderName.trim().isEmpty())
+            return "Cardholder name is required.";
+        if (cardNumber == null || !cardNumber.replaceAll("\\s", "").matches("\\d{16}"))
+            return "Card number must be exactly 16 digits.";
+        if (expiryMonth == null || expiryMonth.trim().isEmpty())
+            return "Expiry month is required.";
+        if (expiryYear == null || expiryYear.trim().isEmpty())
+            return "Expiry year is required.";
+        if (cvv == null || !cvv.matches("\\d{3,4}"))
+            return "CVV must be 3 or 4 digits.";
         return null;
     }
 }

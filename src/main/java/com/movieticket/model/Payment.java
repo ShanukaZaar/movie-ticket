@@ -7,60 +7,96 @@ public class Payment {
     private int bookingId;
     private double amount;
     private String paymentMethod;
-    private String paymentStatus;
-    private String cardholderName;
-    private String lastFourDigits;
-    private String billingEmail;
+    private String status;
+    private String cardHolderName;
     private String transactionId;
-    private String emailSent;
     private Timestamp paymentDate;
 
-    public Payment() {}
+    // Extra field for display
+    private String movieTitle;
 
-    public Payment(int bookingId, double amount, String paymentMethod, String paymentStatus,
-                   String cardholderName, String lastFourDigits, String billingEmail,
-                   String transactionId, String emailSent) {
+    public Payment() {
+    }
+
+    public Payment(int bookingId, double amount, String paymentMethod,
+            String status, String cardHolderName, String transactionId) {
         this.bookingId = bookingId;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
-        this.paymentStatus = paymentStatus;
-        this.cardholderName = cardholderName;
-        this.lastFourDigits = lastFourDigits;
-        this.billingEmail = billingEmail;
+        this.status = status;
+        this.cardHolderName = cardHolderName;
         this.transactionId = transactionId;
-        this.emailSent = emailSent;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public int getBookingId() { return bookingId; }
-    public void setBookingId(int bookingId) { this.bookingId = bookingId; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public double getAmount() { return amount; }
-    public void setAmount(double amount) { this.amount = amount; }
+    public int getBookingId() {
+        return bookingId;
+    }
 
-    public String getPaymentMethod() { return paymentMethod; }
-    public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
+    }
 
-    public String getPaymentStatus() { return paymentStatus; }
-    public void setPaymentStatus(String paymentStatus) { this.paymentStatus = paymentStatus; }
+    public double getAmount() {
+        return amount;
+    }
 
-    public String getCardholderName() { return cardholderName; }
-    public void setCardholderName(String cardholderName) { this.cardholderName = cardholderName; }
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 
-    public String getLastFourDigits() { return lastFourDigits; }
-    public void setLastFourDigits(String lastFourDigits) { this.lastFourDigits = lastFourDigits; }
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
 
-    public String getBillingEmail() { return billingEmail; }
-    public void setBillingEmail(String billingEmail) { this.billingEmail = billingEmail; }
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
 
-    public String getTransactionId() { return transactionId; }
-    public void setTransactionId(String transactionId) { this.transactionId = transactionId; }
+    public String getStatus() {
+        return status;
+    }
 
-    public String getEmailSent() { return emailSent; }
-    public void setEmailSent(String emailSent) { this.emailSent = emailSent; }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-    public Timestamp getPaymentDate() { return paymentDate; }
-    public void setPaymentDate(Timestamp paymentDate) { this.paymentDate = paymentDate; }
+    public String getCardHolderName() {
+        return cardHolderName;
+    }
+
+    public void setCardHolderName(String cardHolderName) {
+        this.cardHolderName = cardHolderName;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public Timestamp getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Timestamp paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
+    }
 }
