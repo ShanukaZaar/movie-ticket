@@ -260,7 +260,7 @@
                                                         <c:if test="${movie.status == 'now_showing'}">
                                                             <c:choose>
                                                                 <c:when test="${sessionScope.user != null}">
-                                                                    <a href="${pageContext.request.contextPath}/booking?action=shows&movieId=${movie.id}"
+                                                                    <a href="${pageContext.request.contextPath}/reservation?movieId=${movie.id}"
                                                                         class="btn btn-book">
                                                                         <i class="bi bi-ticket-perforated"></i> Book
                                                                         Tickets
@@ -325,7 +325,7 @@
                                                     <p style="color:#ccc;">Select a show time for ${movie.title}</p>
                                                     <c:choose>
                                                         <c:when test="${sessionScope.user != null}">
-                                                            <a href="${pageContext.request.contextPath}/booking?action=shows&movieId=${movie.id}"
+                                                            <a href="${pageContext.request.contextPath}/reservation?movieId=${movie.id}"
                                                                 class="btn btn-book mt-2">
                                                                 <i class="bi bi-calendar-check"></i> View Available
                                                                 Shows
