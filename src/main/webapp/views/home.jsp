@@ -205,6 +205,14 @@
                     font-size: 0.75rem;
                 }
 
+                .badge-ended {
+                    background: #555;
+                    color: #fff;
+                    padding: 3px 10px;
+                    border-radius: 20px;
+                    font-size: 0.75rem;
+                }
+
                 .empty-section {
                     text-align: center;
                     padding: 40px 0;
@@ -672,10 +680,15 @@
                                                                                             <span class="badge-now">Now
                                                                                                 Showing</span>
                                                                                         </c:when>
-                                                                                        <c:otherwise>
+                                                                                        <c:when
+                                                                                            test="${movie.status == 'coming_soon'}">
                                                                                             <span
                                                                                                 class="badge-soon">Coming
                                                                                                 Soon</span>
+                                                                                        </c:when>
+                                                                                        <c:otherwise>
+                                                                                            <span
+                                                                                                class="badge-ended">Ended</span>
                                                                                         </c:otherwise>
                                                                                     </c:choose>
                                                                                 </div>

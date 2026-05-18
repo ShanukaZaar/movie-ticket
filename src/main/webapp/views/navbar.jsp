@@ -74,6 +74,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="mainNav">
+
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link ${currentPage == 'home' ? 'active' : ''}"
@@ -90,29 +91,13 @@
                         <li class="nav-item">
                             <a class="nav-link ${currentPage == 'booking' ? 'active' : ''}"
                                 href="${pageContext.request.contextPath}/booking?action=myBookings">
-                                <i class="bi bi-ticket-perforated"></i> My Bookings
+                                My Bookings
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link ${currentPage == 'theater' ? 'active' : ''}"
+                            <a class="nav-link"
                                 href="${pageContext.request.contextPath}/theater?action=list">Theaters</a>
                         </li>
-
-                        <%-- Admin only links --%>
-                            <c:if test="${sessionScope.userRole == 'admin'}">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="${pageContext.request.contextPath}/dashboard"
-                                        style="color:#ffffff !important; font-weight:700;">
-                                        <i class="bi bi-speedometer2"></i> Dashboard
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="${pageContext.request.contextPath}/theater?action=list"
-                                        style="color:#ffffff !important; font-weight:700;">
-                                        <i class="bi bi-building"></i> Manage Theaters
-                                    </a>
-                                </li>
-                            </c:if>
                     </ul>
 
                     <ul class="navbar-nav">
@@ -120,7 +105,7 @@
                             <c:when test="${sessionScope.user != null}">
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                        👤 ${sessionScope.userName}
+                                        ${sessionScope.userName}
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li>
@@ -129,17 +114,33 @@
                                                 <i class="bi bi-speedometer2"></i> Dashboard
                                             </a>
                                         </li>
+                                        <li>
+                                            <a class="dropdown-item"
+                                                href="${pageContext.request.contextPath}/booking?action=myBookings">
+                                                <i class="bi bi-ticket-perforated"></i> My Bookings
+                                            </a>
+                                        </li>
+
                                         <c:if test="${sessionScope.userRole == 'admin'}">
+                                            <li>
+                                                <hr class="dropdown-divider" style="border-color:#333;">
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="${pageContext.request.contextPath}/reports">
+                                                    <i class="bi bi-bar-chart-line"></i> Reports
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a class="dropdown-item"
                                                     href="${pageContext.request.contextPath}/theater?action=list">
-                                                    <i class="bi bi-building"></i> Theaters
+                                                    <i class="bi bi-building"></i> Manage Theaters
                                                 </a>
                                             </li>
                                             <li>
                                                 <a class="dropdown-item"
                                                     href="${pageContext.request.contextPath}/theater?action=shows">
-                                                    <i class="bi bi-camera-reels"></i> Shows
+                                                    <i class="bi bi-camera-reels"></i> Manage Shows
                                                 </a>
                                             </li>
                                             <li>
@@ -148,7 +149,14 @@
                                                     <i class="bi bi-list-ul"></i> All Bookings
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="${pageContext.request.contextPath}/payment?action=list">
+                                                    <i class="bi bi-credit-card"></i> All Payments
+                                                </a>
+                                            </li>
                                         </c:if>
+
                                         <li>
                                             <hr class="dropdown-divider" style="border-color:#333;">
                                         </li>

@@ -161,4 +161,30 @@ public class PaymentDAO {
         }
         return payment;
     }
+
+    // Process refund
+    public boolean processRefund(int bookingId, double refundAmount,
+            double cancellationFee) throws SQLException {
+        String sql = "UPDATE payments SET status = 'refunded', " +
+                "refund_amount = ?, cancellation_fee = ? " +
+                "WHERE booking_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setDouble(1, refundAmount);
+            ps.setDouble(2, cancellationFee);
+            ps.setInt(3, bookingId);
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    // Get payment by booking ID for refund check
+    public boolean hasPayment(int bookingId) throws SQLException {
+        String sql = "SELECT id FROM payments WHERE booking_id = ? AND status = 'success'";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, bookingId);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        }
+    }
 }

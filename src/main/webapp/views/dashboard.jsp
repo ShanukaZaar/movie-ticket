@@ -258,6 +258,15 @@
                                             </div>
 
                                             <div class="col-6 col-md-3">
+                                                <a href="${pageContext.request.contextPath}/reports" class="dash-card">
+                                                    <span class="card-icon" style="color:#cc5de8;"><i
+                                                            class="bi bi-bar-chart-line"></i></span>
+                                                    <h5>Reports</h5>
+                                                    <p>Monthly analytics</p>
+                                                </a>
+                                            </div>
+
+                                            <div class="col-6 col-md-3">
                                                 <a href="${pageContext.request.contextPath}/payment?action=list"
                                                     class="dash-card">
                                                     <span class="card-icon icon-green"><i

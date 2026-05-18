@@ -299,5 +299,29 @@ public class BookingDAO {
             }
         }
         return bookings;
+
+    }
+
+    // Get booking amount by booking ID
+    public double getTotalAmountByBookingId(int bookingId) throws SQLException {
+        String sql = "SELECT total_amount FROM bookings WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, bookingId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getDouble("total_amount");
+        }
+        return 0.0;
+    }
+
+    // Cancel booking and process refund
+    public boolean cancelAndRefund(int bookingId) throws SQLException {
+        String sql = "UPDATE bookings SET status = 'cancelled' WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, bookingId);
+            return ps.executeUpdate() > 0;
+        }
     }
 }
